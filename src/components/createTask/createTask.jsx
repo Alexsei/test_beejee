@@ -18,7 +18,7 @@ export default class CreateTask extends Component {
 
 
     async loadTasks(){
-        const url = "https://uxcandy.com/~shapoval/test-task-backend/v2/create/?developer=Name";
+        const url = "https://uxcandy.com/~shapoval/test-task-backend/v2/create/?developer=Alexsei";
         const form = new FormData();
         form.append("username", this.props.username);
         form.append("email", this.props.email);

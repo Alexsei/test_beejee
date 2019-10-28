@@ -19,7 +19,7 @@ export default class MenuTasks extends Component {
     }
 
     async loadTasks(){
-        const url = "https://uxcandy.com/~shapoval/test-task-backend/v2/?developer=Name"
+        const url = "https://uxcandy.com/~shapoval/test-task-backend/v2/?developer=Alexsei"
             +'&sort_field='+ this.props.sort_field
             +'&sort_direction='+ this.props.sort_direction
             +'&page='+ this.props.page;
