@@ -28,7 +28,7 @@ export default class CreateTask extends Component {
             body: form
         };
         const response = await fetch(url, options).then(response => response.json());
-        console.log("message", response.message);
+        //console.log("message", response.message);
         let message = [];
         for (let key in response.message) {
             message.push(key + ": " + response.message[key])
@@ -45,7 +45,7 @@ export default class CreateTask extends Component {
                 break;
             default:
         }
-        console.log(response);
+        //console.log(response);
     }
 
     onUserNameChange(event) {

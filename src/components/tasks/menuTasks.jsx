@@ -50,24 +50,9 @@ export default class MenuTasks extends Component {
 
     render() {
         this.startLoad();
-        let AuthButton;
-        if (this.props.auth) {
-            AuthButton = <Button className="m-1"
-                                 variant="outline-success"
-                                 href="/auth"
-            >Выход</Button>;
-        } else {
-            AuthButton = <Button className="m-1"
-                                 variant="outline-success"
-                                 href="/auth"
-            >Авторизация </Button>;
-        }
         return (
             <div>
-                {AuthButton}
-
                 <hr/>
-
                 <ul>
                     <li>Всего страниц: {Math.ceil(this.props.total_task_count/3 )}</li>
                     <li>Всего записей: {this.props.total_task_count}</li>

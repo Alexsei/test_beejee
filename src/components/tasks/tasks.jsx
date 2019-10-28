@@ -1,12 +1,14 @@
 import React, { Component } from "react";
 import {Button, Table} from 'react-bootstrap';
 import MenuTasksContainer from './menuTasksContainer'
+import TopMenu from "../topMenu/topMenu";
 
 export default class Tasks extends Component {
     render() {
 
         return (
             <div>
+                <TopMenu/>
                 <MenuTasksContainer  />
                 <Table className="m-3">
                     <thead>
