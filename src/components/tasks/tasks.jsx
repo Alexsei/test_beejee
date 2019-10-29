@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import {Button, Table} from 'react-bootstrap';
 import MenuTasksContainer from './menuTasksContainer'
 import TopMenu from "../topMenu/topMenu";
+import TaskContainer from "./task/taskContainer";
 
 export default class Tasks extends Component {
     render() {
@@ -18,12 +19,14 @@ export default class Tasks extends Component {
                         <th>email</th>
                         <th>text</th>
                         <th>status</th>
+                        <th></th>
                     </tr>
                     </thead>
                     <tbody>
                     {
-                        this.props.tasks.map( item => {
-                            return <Task id = {item.id}
+                        this.props.tasks.map( (item, index) => {
+                            return <TaskContainer id = {item.id}
+                                         index = {index}
                                          username = {item.username}
                                          email = {item.email}
                                          text = {item.text}
@@ -43,18 +46,4 @@ export default class Tasks extends Component {
     }
 }
 
-class Task extends Component {
-    render() {
-        return (
-            <tr>
-                <td>{this.props.id}</td>
-                <td>{this.props.username}</td>
-                <td>{this.props.email}</td>
-                <td>{this.props.text}</td>
-                <td>{this.props.status}</td>
-            </tr>
-
-        );
-    }
-}
 
