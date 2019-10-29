@@ -24,8 +24,8 @@ export default class Task extends Component {
             edit[this.props.index] = true;
             this.props.setTasksEdit(edit);
             this.setState({
-                newText: this.props.text,
-                newStatus: this.props.status===10,
+                newText: this.props.tasks[this.props.index].text,
+                newStatus: this.props.tasks[this.props.index].status===10,
             })
         }
     }
@@ -101,7 +101,7 @@ export default class Task extends Component {
                                      onChange={this.onTextChange}
                     /></td>
                 ) :(
-                    <td>{this.props.text.replace(/&lt;/g, "<").replace(/&gt;/g, ">")}</td>
+                    <td>{this.props.tasks[this.props.index].text.replace(/&lt;/g, "<").replace(/&gt;/g, ">")}</td>
                 )}
                 <td >
                     {this.props.edit[this.props.index] ? (
@@ -121,8 +121,8 @@ export default class Task extends Component {
                         </InputGroup.Prepend>
                     ) :(
                         <InputGroup.Prepend >
-                            <InputGroup.Checkbox checked={this.props.status===10}/>
-                            {this.props.status===10 ? (
+                            <InputGroup.Checkbox checked={this.props.tasks[this.props.index].status===10}/>
+                            {this.props.tasks[this.props.index].status===10 ? (
                                 <p className='m-1 '> Выполнена</p>
                             ) : (
                                 <p className='m-1 ' >Не выполнена</p>
