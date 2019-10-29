@@ -23,6 +23,8 @@ export default class Task extends Component {
     onClickEdit(){
         if (this.state.auth) {
             this.setState({
+                newText: this.props.text,
+                newStatus: this.props.status===10,
                 edit: true
             })
         }
@@ -89,7 +91,7 @@ export default class Task extends Component {
                                      onChange={this.onTextChange}
                     /></td>
                 ) :(
-                    <td>{this.state.text}</td>
+                    <td>{this.props.text}</td>
                 )}
                 <td >
                     {this.state.edit ? (
@@ -109,8 +111,8 @@ export default class Task extends Component {
                         </InputGroup.Prepend>
                     ) :(
                         <InputGroup.Prepend >
-                            <InputGroup.Checkbox checked={this.state.status}/>
-                            {this.state.status ? (
+                            <InputGroup.Checkbox checked={this.props.status===10}/>
+                            {this.props.status===10 ? (
                                 <p className='m-1 '> Выполнена</p>
                             ) : (
                                 <p className='m-1 ' >Не выполнена</p>
