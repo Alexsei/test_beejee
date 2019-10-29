@@ -153,16 +153,16 @@ export default class Task extends Component {
                             <InputGroup.Prepend >
                                 <InputGroup.Checkbox checked={this.props.tasks[this.props.index].status===10}/>
                                 {this.props.tasks[this.props.index].status===10 ? (
-                                    <p className='m-1 '> Выполнена</p>
+                                    <p className='m-1 '> Выполнено</p>
                                 ) : (
-                                    <p className='m-1 ' >Не выполнена</p>
+                                    <p className='m-1 ' >Не выполнено</p>
                                 )}
                             </InputGroup.Prepend>
                         )
                         }
                         </Col>
                         {!!this.htmlDecode(this.props.tasks[this.props.index].text).match(/☣/) &&
-                        <Col>Отредактированно администратором</Col>
+                        <Col>☣ Отредактированно администратором</Col>
 
                         }
 
