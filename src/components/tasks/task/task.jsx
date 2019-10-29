@@ -14,8 +14,7 @@ export default class Task extends Component {
             auth: !!localStorage.getItem('username'),
             edit: false,
             newStatus: this.props.status===10,
-            adminEdit: this.props.status===11,
-            newText: this.props.text,
+            newText: this.props.text.replace(/☣/g, ''),
             message: [],
             variant: 'danger',
         }
@@ -31,7 +30,7 @@ export default class Task extends Component {
             edit[this.props.index] = true;
             this.props.setTasksEdit(edit);
             this.setState({
-                newText: this.props.tasks[this.props.index].text,
+                newText: this.props.tasks[this.props.index].text.replace(/☣/g, ''),
                 newStatus: this.props.tasks[this.props.index].status===10,
             })
         }
@@ -49,7 +48,11 @@ export default class Task extends Component {
         if (this.state.auth) {
             const url = "https://uxcandy.com/~shapoval/test-task-backend/v2/edit/"+this.props.id+"/?developer=Alexsei";
             const form = new FormData();
-            const newText = this.state.newText;
+            let newText = this.state.newText;
+            if (!(newText===this.props.tasks[this.props.index].text)) {
+                newText += '☣';
+            }
+
             const newStatus = this.state.newStatus*10;
             form.append("token", localStorage.getItem('token'));
             form.append("text", newText); //
@@ -121,15 +124,16 @@ export default class Task extends Component {
                     {this.props.edit[this.props.index] ? (
                         <Col className="border"
                              md={4}
-                        ><FormControl value={this.htmlDecode(this.state.newText)}
+                        ><FormControl value={this.htmlDecode(this.state.newText).replace(/☣/g, '')}
                                               onChange={this.onTextChange}
                         /></Col>
                     ) :(
                         <Col className="border"
                              md={4}
-                        >{this.htmlDecode(this.props.tasks[this.props.index].text)}</Col>
+                        >{this.htmlDecode(this.props.tasks[this.props.index].text).replace(/☣/g, '')}</Col>
                     )}
-                    <Col className="border" md={2}>
+                    <Col className="border" md={3}>
+                        <Col>
                         {this.props.edit[this.props.index] ? (
                             <InputGroup.Prepend onClick={this.onStatusChange}
                                                 className=''
@@ -156,14 +160,20 @@ export default class Task extends Component {
                             </InputGroup.Prepend>
                         )
                         }
+                        </Col>
+                        {!!this.htmlDecode(this.props.tasks[this.props.index].text).match(/☣/) &&
+                        <Col>Отредактированно администратором</Col>
+
+                        }
+
                     </Col>
                     <Col className="border"
-                         md={2}
+                         md={1}
                     >{this.props.edit[this.props.index] ? (
                         <div className="m-1" >
                             <Button variant="outline-success"
                                     onClick={this.onClickSave}
-                            >Сохранить</Button>
+                            >✔</Button>
                             <Button variant="outline-danger"
                                     onClick={this.onClickcancel}
                             ><strong>X</strong></Button>
@@ -176,7 +186,7 @@ export default class Task extends Component {
                                 <Button variant="outline-success"
                                     className="m-1"
                                     onClick={this.onClickEdit}
-                            >Изменить</Button>
+                            >✎</Button>
                     )}
 
 

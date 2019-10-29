@@ -135,7 +135,7 @@ export default class MenuTasks extends Component {
 
                     <Col className="border" md={4}><strong>text</strong></Col>
                     <Col className="border"
-                         md={2}
+                         md={3}
                          onClick={()=> this.onFieldChange('status')}
                     ><strong>
                         {this.props.sort_field === 'status' ? (
@@ -149,7 +149,7 @@ export default class MenuTasks extends Component {
                         )
                         }
                         </strong></Col>
-                    <Col className="border" md={2}></Col>
+                    <Col className="border" md={1}></Col>
                 </Row>
             </div>
         );
