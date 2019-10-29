@@ -33,16 +33,18 @@ export default class Task extends Component {
         if (this.state.auth) {
             const url = "https://uxcandy.com/~shapoval/test-task-backend/v2/edit/"+this.props.id+"/?developer=Alexsei";
             const form = new FormData();
+            const newText = this.state.newText;
+            const newStatus = this.state.newStatus*10;
 
             form.append("token", localStorage.getItem('token'));
-            form.append("text", this.state.newText);
-            form.append("status", (this.state.newStatus*10));
+            form.append("text", newText);
+            form.append("status", (newStatus));
             const options  = {
                 method: 'POST',
                 body: form
             };
 
-            console.log(this.state.newText, this.state.newStatus*10);
+            console.log(newText, newStatus);
             const response = await fetch(url, options).then(response => response.json());
             console.log(response);
             let message = [];
@@ -51,12 +53,18 @@ export default class Task extends Component {
             }
             switch (response.status) {
                 case "ok":
-                    this.setState({
-                        text: this.state.newText,
-                        status: this.state.newStatus,
-                    })
                     let edit = this.props.edit;
                     edit[this.props.index] = false;
+                    const tasks = this.props.tasks;
+                    tasks[this.props.index] = {
+                        id: this.props.id,
+                        username: this.props.username,
+                        email: this.props.email,
+                        text: newText,
+                        status: newStatus
+                    };
+                    console.log(this.props.tasks, tasks);
+                    this.props.setTasksText(tasks);
                     this.props.setTasksEdit(edit);
                     break;
                 case "error":
@@ -89,11 +97,11 @@ export default class Task extends Component {
                 <td>{this.props.username}</td>
                 <td>{this.props.email}</td>
                 {this.props.edit[this.props.index] ? (
-                    <td><FormControl value={this.state.newText}
+                    <td><FormControl value={this.state.newText.replace(/&lt;/g, "<").replace(/&gt;/g, ">")}
                                      onChange={this.onTextChange}
                     /></td>
                 ) :(
-                    <td>{this.props.text}</td>
+                    <td>{this.props.text.replace(/&lt;/g, "<").replace(/&gt;/g, ">")}</td>
                 )}
                 <td >
                     {this.props.edit[this.props.index] ? (

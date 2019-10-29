@@ -23,6 +23,7 @@ export default class CreateTask extends Component {
         form.append("username", this.props.username);
         form.append("email", this.props.email);
         form.append("text", this.props.text);
+        console.log(this.props.text);
         const options  = {
             method: 'POST',
             body: form
