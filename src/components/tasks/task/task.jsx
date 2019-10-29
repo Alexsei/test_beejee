@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import {Button, FormControl, InputGroup, Alert} from "react-bootstrap";
+import {Button, FormControl, InputGroup, Alert, Col, Row } from "react-bootstrap";
 
 export default class Task extends Component {
     constructor(props) {
@@ -9,10 +9,12 @@ export default class Task extends Component {
         this.onTextChange = this.onTextChange.bind(this);
         this.onStatusChange = this.onStatusChange.bind(this);
         this.htmlDecode = this.htmlDecode.bind(this);
+        this.onClickcancel = this.onClickcancel.bind(this);
         this.state = {
             auth: !!localStorage.getItem('username'),
             edit: false,
             newStatus: this.props.status===10,
+            adminEdit: this.props.status===11,
             newText: this.props.text,
             message: [],
             variant: 'danger',
@@ -21,7 +23,7 @@ export default class Task extends Component {
     htmlDecode (str) {
         let txt = document.createElement('textarea');
         txt.innerHTML = str;
-        return txt.value
+        return txt.value;
     }
     onClickEdit(){
         if (this.state.auth) {
@@ -34,6 +36,15 @@ export default class Task extends Component {
             })
         }
     }
+    onClickcancel(){
+
+        let edit = this.props.edit;
+        edit[this.props.index] = false;
+        this.props.setTasksEdit(edit);
+        this.setState({});
+
+    }
+
     async onClickSave(){
         if (this.state.auth) {
             const url = "https://uxcandy.com/~shapoval/test-task-backend/v2/edit/"+this.props.id+"/?developer=Alexsei";
@@ -67,7 +78,6 @@ export default class Task extends Component {
                         text: newText,
                         status: newStatus
                     };
-                    console.log(this.props.tasks, tasks);
                     this.props.setTasksText(tasks);
                     this.props.setTasksEdit(edit);
                     break;
@@ -84,6 +94,7 @@ export default class Task extends Component {
             })
         }
     }
+
     onTextChange(event) {
         this.setState({
             newText: event.target.value
@@ -96,72 +107,90 @@ export default class Task extends Component {
     }
     render() {
         return (
-            <tr>
-                <td>{this.props.id}</td>
-                <td>{this.props.username}</td>
-                <td>{this.props.email}</td>
-                {this.props.edit[this.props.index] ? (
-                    <td><FormControl value={this.htmlDecode(this.state.newText)}
-                                     onChange={this.onTextChange}
-                    /></td>
-                ) :(
-                    <td>{this.htmlDecode(this.props.tasks[this.props.index].text)}</td>
-
-                )}
-
-                <td >
+            <div>
+                <Row className="mx-3">
+                    <Col className="border"
+                         md={1}
+                    >{this.props.id}</Col>
+                    <Col className="border"
+                         md={1}
+                    >{this.props.username}</Col>
+                    <Col className="border"
+                         md={2}
+                    >{this.props.email}</Col>
                     {this.props.edit[this.props.index] ? (
-                        <InputGroup.Prepend onClick={this.onStatusChange}
-                                            className=''
-                        >
-                            <InputGroup.Checkbox checked={this.state.newStatus}
-                                                 className=''
-
-
-                            />
-                            {this.state.newStatus ? (
-                                <p className='m-1 '> Выполнена</p>
-                            ) : (
-                                <p className='m-1 ' >Не выполнена</p>
-                            )}
-                        </InputGroup.Prepend>
+                        <Col className="border"
+                             md={4}
+                        ><FormControl value={this.htmlDecode(this.state.newText)}
+                                              onChange={this.onTextChange}
+                        /></Col>
                     ) :(
-                        <InputGroup.Prepend >
-                            <InputGroup.Checkbox checked={this.props.tasks[this.props.index].status===10}/>
-                            {this.props.tasks[this.props.index].status===10 ? (
-                                <p className='m-1 '> Выполнена</p>
-                            ) : (
-                                <p className='m-1 ' >Не выполнена</p>
-                            )}
-                        </InputGroup.Prepend>
-                    )
+                        <Col className="border"
+                             md={4}
+                        >{this.htmlDecode(this.props.tasks[this.props.index].text)}</Col>
+                    )}
+                    <Col className="border" md={2}>
+                        {this.props.edit[this.props.index] ? (
+                            <InputGroup.Prepend onClick={this.onStatusChange}
+                                                className=''
+                            >
+                                <InputGroup.Checkbox checked={this.state.newStatus}
+                                                     className=''
 
 
-                    }
-
-                </td>
-                {this.props.edit[this.props.index] ? (
-
-                    <td><Button variant="outline-success"
-                                className="m-1"
-                                onClick={this.onClickSave}
-                    >Сохранить</Button></td>
-                ) : (
-                    <td>
-                        {this.state.auth &&
-                        <Button variant="outline-success"
-                                className="m-1"
-                                onClick={this.onClickEdit}
-                        >Изменить</Button>
+                                />
+                                {this.state.newStatus ? (
+                                    <p className='m-1 '> Выполнена</p>
+                                ) : (
+                                    <p className='m-1 ' >Не выполнена</p>
+                                )}
+                            </InputGroup.Prepend>
+                        ) :(
+                            <InputGroup.Prepend >
+                                <InputGroup.Checkbox checked={this.props.tasks[this.props.index].status===10}/>
+                                {this.props.tasks[this.props.index].status===10 ? (
+                                    <p className='m-1 '> Выполнена</p>
+                                ) : (
+                                    <p className='m-1 ' >Не выполнена</p>
+                                )}
+                            </InputGroup.Prepend>
+                        )
                         }
-                    </td>
-                )}
+                    </Col>
+                    <Col className="border"
+                         md={2}
+                    >{this.props.edit[this.props.index] ? (
+                        <div className="m-1" >
+                            <Button variant="outline-success"
+                                    onClick={this.onClickSave}
+                            >Сохранить</Button>
+                            <Button variant="outline-danger"
+                                    onClick={this.onClickcancel}
+                            ><strong>X</strong></Button>
+                        </div>
+
+
+
+                    ) : (
+                        this.state.auth &&
+                                <Button variant="outline-success"
+                                    className="m-1"
+                                    onClick={this.onClickEdit}
+                            >Изменить</Button>
+                    )}
+
+
+
+                    </Col>
+                </Row>
                 {this.state.message.map((value) => (
-                    <Alert  variant={this.state.variant}>{value}</Alert>
+                    <Row className="mx-3">
+                        <Col className="border" >
+                            <Alert  variant={this.state.variant}>{value}</Alert>
+                        </Col>
+                    </Row>
                 ))}
-
-            </tr>
-
+            </div>
         );
     }
 }

@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import {Button} from "react-bootstrap";
+import {Button, Row, Col} from "react-bootstrap";
 
 
 
@@ -107,6 +107,15 @@ export default class MenuTasks extends Component {
                         >В Конец</Button>
                     </li>
                 </ul>
+
+                <Row className="mx-3">
+                    <Col className="border" md={1}><strong>id</strong></Col>
+                    <Col className="border" md={1}><strong>username</strong></Col>
+                    <Col className="border" md={2}><strong>email</strong></Col>
+                    <Col className="border" md={4}><strong>text</strong></Col>
+                    <Col className="border" md={2}><strong>status</strong></Col>
+                    <Col className="border" md={2}></Col>
+                </Row>
             </div>
         );
     }
