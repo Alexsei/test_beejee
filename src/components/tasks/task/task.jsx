@@ -14,18 +14,18 @@ export default class Task extends Component {
             edit: false,
             newStatus: this.props.status===10,
             newText: this.props.text,
-            status: this.props.status===10,
-            text: this.props.text,
             message: [],
             variant: 'danger',
         }
     }
     onClickEdit(){
         if (this.state.auth) {
+            let edit = this.props.edit;
+            edit[this.props.index] = true;
+            this.props.setTasksEdit(edit);
             this.setState({
                 newText: this.props.text,
                 newStatus: this.props.status===10,
-                edit: true
             })
         }
     }
@@ -55,7 +55,9 @@ export default class Task extends Component {
                         text: this.state.newText,
                         status: this.state.newStatus,
                     })
-
+                    let edit = this.props.edit;
+                    edit[this.props.index] = false;
+                    this.props.setTasksEdit(edit);
                     break;
                 case "error":
                     this.setState({  variant: 'danger'});
@@ -86,7 +88,7 @@ export default class Task extends Component {
                 <td>{this.props.id}</td>
                 <td>{this.props.username}</td>
                 <td>{this.props.email}</td>
-                {this.state.edit ? (
+                {this.props.edit[this.props.index] ? (
                     <td><FormControl value={this.state.newText}
                                      onChange={this.onTextChange}
                     /></td>
@@ -94,7 +96,7 @@ export default class Task extends Component {
                     <td>{this.props.text}</td>
                 )}
                 <td >
-                    {this.state.edit ? (
+                    {this.props.edit[this.props.index] ? (
                         <InputGroup.Prepend onClick={this.onStatusChange}
                                             className=''
                         >
@@ -124,7 +126,7 @@ export default class Task extends Component {
                     }
 
                 </td>
-                {this.state.edit ? (
+                {this.props.edit[this.props.index] ? (
 
                     <td><Button variant="outline-success"
                                 className="m-1"

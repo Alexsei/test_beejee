@@ -2,6 +2,7 @@ import React, {Component} from "react";
 import {Button} from "react-bootstrap";
 
 
+
 export default class MenuTasks extends Component {
     constructor(props) {
         super(props);
@@ -24,11 +25,12 @@ export default class MenuTasks extends Component {
             +'&sort_direction='+ this.props.sort_direction
             +'&page='+ this.props.page;
        // console.log('Start Fetch', url);
-        const response = await fetch(url).then(response => response.json())
+        const response = await fetch(url).then(response => response.json());
         //console.log(response)
         if (response['status'] ==="ok") {
-            this.props.setTasksTotalTaskCount(response['message']['total_task_count'])
-            this.props.setTasksText(response['message']['tasks'])
+            this.props.setTasksTotalTaskCount(response['message']['total_task_count']);
+            this.props.setTasksText(response['message']['tasks']);
+            this.props.setTasksEdit([false,false,false]);
         }
     }
 

@@ -3,14 +3,17 @@ import {connect} from "react-redux";
 
 
 import Task from "./task";
-import {setTasksText} from "../../store/tasks/actions";
+import {setTasksEdit, setTasksText} from "../../store/tasks/actions";
 
 
 
 class TaskContainer extends Component {
     render() {
         return <Task tasks={this.props.tasks}
+                     edit={this.props.edit}
+
                      setTasksText={this.props.setTasksText}
+                     setTasksEdit={this.props.setTasksEdit}
                      id={this.props.id}
                      index={this.props.index}
                      status={this.props.status}
@@ -23,6 +26,7 @@ class TaskContainer extends Component {
 
 const mapStateToProps = (state, ownProps) => {
     return {
+        edit: state.tasks.edit,
         tasks: state.tasks.tasks,
         id: ownProps.id,
         index: ownProps.index,
@@ -34,6 +38,7 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps =  {
     setTasksText: setTasksText,
+    setTasksEdit: setTasksEdit
 };
 
 export default connect (mapStateToProps, mapDispatchToProps)(TaskContainer)

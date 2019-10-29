@@ -3,7 +3,7 @@ export const TASKS_CHANGE_SORT_FIELD = 'TASKS_CHANGE_SORT_FIELD';
 export const TASKS_CHANGE_SORT_DIRECTION = 'TASKS_CHANGE_SORT_DIRECTION';
 export const TASKS_CHANGE_PAGE = 'TASKS_CHANGE_PAGE';
 export const TASKS_CHANGE_TOTAL_TASK_COUNT = 'TASKS_CHANGE_TOTAL_TASK_COUNT';
-
+export const TASKS_CHANGE_EDIT = 'TASKS_CHANGE_EDIT';
 
 export const  setTasksText = tasks => ({
     type: TASKS_CHANGE_TASKS,
@@ -28,6 +28,11 @@ export const  setTasksPage = page => ({
 export const  setTasksTotalTaskCount = total_task_count => ({
     type: TASKS_CHANGE_TOTAL_TASK_COUNT,
     payload: total_task_count
+});
+
+export const  setTasksEdit = edit => ({
+    type: TASKS_CHANGE_EDIT,
+    payload: edit
 });
 
 

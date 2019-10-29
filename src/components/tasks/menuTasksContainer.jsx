@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import {connect} from "react-redux";
 
 import {
+    setTasksEdit,
     setTasksPage,
     setTasksSortDirection,
     setTasksSortField,
@@ -27,6 +28,7 @@ class MenuTasksContainer extends Component {
             page = {this.props.page}
             total_task_count = {this.props.total_task_count}
 
+            setTasksEdit={this.props.setTasksEdit}
             setTasksText = {this.props.setTasksText}
             setTasksSortField = {this.props.setTasksSortField}
             setTasksSortDirection = {this.props.setTasksSortDirection}
@@ -55,7 +57,9 @@ const mapDispatchToProps =  {
     setTasksSortField: setTasksSortField,
     setTasksSortDirection: setTasksSortDirection,
     setTasksPage: setTasksPage,
-    setTasksTotalTaskCount: setTasksTotalTaskCount
+    setTasksTotalTaskCount: setTasksTotalTaskCount,
+    setTasksEdit: setTasksEdit,
+
 
 
 };
