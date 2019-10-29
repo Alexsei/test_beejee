@@ -41,6 +41,14 @@ export default class MenuTasks extends Component {
         }
     }
     onFieldChange(field) {
+        if (this.props.sort_field===field) {
+            if (this.props.sort_direction==='asc') {
+                this.props.setTasksSortDirection('desc');
+            } else {
+                this.props.setTasksSortDirection('asc');
+            }
+        }
+
         this.props.setTasksSortField(field);
         setTimeout(this.loadTasks, 0);
     }
@@ -58,36 +66,6 @@ export default class MenuTasks extends Component {
                 <ul>
                     <li>Всего страниц: {Math.ceil(this.props.total_task_count/3 )}</li>
                     <li>Всего записей: {this.props.total_task_count}</li>
-
-                    <li>Сортировка по: {this.props.sort_field} . выбрать =>
-                        <Button variant="outline-secondary"
-                                onClick={()=> this.onFieldChange('id')}
-                                className="m-1"
-
-                        >id</Button>
-                        <Button variant="outline-secondary"
-                                onClick={()=> this.onFieldChange('username')}
-                                className="m-1"
-                        >username</Button>
-                        <Button variant="outline-secondary"
-                                onClick={()=> this.onFieldChange('email')}
-                                className="m-1"
-                        >email</Button>
-                        <Button variant="outline-secondary"
-                                onClick={()=> this.onFieldChange('status')}
-                                className="m-1"
-                        >status</Button>
-                    </li>
-                    <li>Направление: {this.props.sort_direction} . выбрать =>
-                        <Button variant="outline-secondary"
-                                onClick={()=> this.onDirectionChange('asc')}
-                                className="m-1"
-                        >asc</Button>
-                        <Button variant="outline-secondary"
-                                onClick={()=> this.onDirectionChange('desc')}
-                                className="m-1"
-                        >desc</Button>
-                    </li>
                     <li>Текушая страница: {this.props.page} навигация:
                         <Button variant="outline-secondary"
                                 onClick={()=> this.onPageChange(1)}
@@ -109,11 +87,68 @@ export default class MenuTasks extends Component {
                 </ul>
 
                 <Row className="mx-3">
-                    <Col className="border" md={1}><strong>id</strong></Col>
-                    <Col className="border" md={1}><strong>username</strong></Col>
-                    <Col className="border" md={2}><strong>email</strong></Col>
+                    <Col className="border"
+                         md={1}
+                         onClick={()=> this.onFieldChange('id')}
+                    ><strong>
+                        {this.props.sort_field === 'id' ? (
+                            this.props.sort_direction === 'asc' ? (
+                                <div>▼ id</div>
+                            ) : (
+                                <div>▲ id</div>
+                            )
+                        ) : (
+                            <div> id</div>
+                        )
+                        }
+                    </strong></Col>
+                    <Col className="border"
+                         md={1}
+                         onClick={()=> this.onFieldChange('username')}
+                    ><strong>
+                        {this.props.sort_field === 'username' ? (
+                            this.props.sort_direction === 'asc' ? (
+                                <div>▼ username</div>
+                            ) : (
+                                <div>▲ username</div>
+                            )
+                        ) : (
+                            <div>username</div>
+                        )
+                        }
+                        </strong></Col>
+                    <Col className="border"
+                         md={2}
+                         onClick={()=> this.onFieldChange('email')}
+                    ><strong>
+                        {this.props.sort_field === 'email' ? (
+                            this.props.sort_direction === 'asc' ? (
+                                <div>▼ email</div>
+                            ) : (
+                                <div>▲ email</div>
+                            )
+                        ) : (
+                            <div>email</div>
+                        )
+                        }
+                        </strong></Col>
+
                     <Col className="border" md={4}><strong>text</strong></Col>
-                    <Col className="border" md={2}><strong>status</strong></Col>
+                    <Col className="border"
+                         md={2}
+                         onClick={()=> this.onFieldChange('status')}
+                    ><strong>
+                        {this.props.sort_field === 'status' ? (
+                            this.props.sort_direction === 'asc' ? (
+                                <div>▼ status</div>
+                            ) : (
+                                <div>▲ status</div>
+                            )
+                        ) : (
+                            <div>status</div>
+                        )
+                        }
+                        </strong></Col>
                     <Col className="border" md={2}></Col>
                 </Row>
             </div>

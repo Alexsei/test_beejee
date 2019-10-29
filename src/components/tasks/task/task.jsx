@@ -140,9 +140,9 @@ export default class Task extends Component {
 
                                 />
                                 {this.state.newStatus ? (
-                                    <p className='m-1 '> Выполнена</p>
+                                    <p className='m-1 '> Выполнено</p>
                                 ) : (
-                                    <p className='m-1 ' >Не выполнена</p>
+                                    <p className='m-1 ' >Не выполнено</p>
                                 )}
                             </InputGroup.Prepend>
                         ) :(
