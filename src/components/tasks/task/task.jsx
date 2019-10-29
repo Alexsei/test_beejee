@@ -35,9 +35,8 @@ export default class Task extends Component {
             const form = new FormData();
             const newText = this.state.newText;
             const newStatus = this.state.newStatus*10;
-
             form.append("token", localStorage.getItem('token'));
-            form.append("text", newText);
+            form.append("text", escape(newText));
             form.append("status", (newStatus));
             const options  = {
                 method: 'POST',
@@ -97,11 +96,11 @@ export default class Task extends Component {
                 <td>{this.props.username}</td>
                 <td>{this.props.email}</td>
                 {this.props.edit[this.props.index] ? (
-                    <td><FormControl value={this.state.newText.replace(/&lt;/g, "<").replace(/&gt;/g, ">")}
+                    <td><FormControl value={unescape(this.state.newText)}
                                      onChange={this.onTextChange}
                     /></td>
                 ) :(
-                    <td>{this.props.tasks[this.props.index].text.replace(/&lt;/g, "<").replace(/&gt;/g, ">")}</td>
+                    <td>{unescape(this.props.tasks[this.props.index].text)}</td>
                 )}
                 <td >
                     {this.props.edit[this.props.index] ? (
