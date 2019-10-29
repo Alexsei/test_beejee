@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import {Button, Table} from 'react-bootstrap';
+import {Button, Container, Table, Row, Col} from 'react-bootstrap';
 import MenuTasksContainer from './menuTasksContainer'
 import TopMenu from "../topMenu/topMenu";
 import TaskContainer from "./task/taskContainer";
@@ -11,6 +11,16 @@ export default class Tasks extends Component {
             <div>
                 <TopMenu/>
                 <MenuTasksContainer  />
+
+
+                <Row className="mx-3">
+                    <Col className="border" md={1}><strong>id</strong></Col>
+                    <Col className="border" md={2}><strong>username</strong></Col>
+                    <Col className="border" md={2}><strong>email</strong></Col>
+                    <Col className="border" md={5}><strong>text</strong></Col>
+                    <Col className="border" md={2}><strong>status</strong></Col>
+                </Row>
+
                 <Table className="m-3">
                     <thead>
                     <tr>

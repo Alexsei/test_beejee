@@ -8,7 +8,7 @@ export default class Task extends Component {
         this.onClickSave = this.onClickSave.bind(this);
         this.onTextChange = this.onTextChange.bind(this);
         this.onStatusChange = this.onStatusChange.bind(this);
-
+        this.htmlDecode = this.htmlDecode.bind(this);
         this.state = {
             auth: !!localStorage.getItem('username'),
             edit: false,
@@ -17,6 +17,11 @@ export default class Task extends Component {
             message: [],
             variant: 'danger',
         }
+    }
+    htmlDecode (str) {
+        let txt = document.createElement('textarea');
+        txt.innerHTML = str;
+        return txt.value
     }
     onClickEdit(){
         if (this.state.auth) {
@@ -36,7 +41,7 @@ export default class Task extends Component {
             const newText = this.state.newText;
             const newStatus = this.state.newStatus*10;
             form.append("token", localStorage.getItem('token'));
-            form.append("text", escape(newText));
+            form.append("text", newText); //
             form.append("status", (newStatus));
             const options  = {
                 method: 'POST',
@@ -96,12 +101,14 @@ export default class Task extends Component {
                 <td>{this.props.username}</td>
                 <td>{this.props.email}</td>
                 {this.props.edit[this.props.index] ? (
-                    <td><FormControl value={unescape(this.state.newText)}
+                    <td><FormControl value={this.htmlDecode(this.state.newText)}
                                      onChange={this.onTextChange}
                     /></td>
                 ) :(
-                    <td>{unescape(this.props.tasks[this.props.index].text)}</td>
+                    <td>{this.htmlDecode(this.props.tasks[this.props.index].text)}</td>
+
                 )}
+
                 <td >
                     {this.props.edit[this.props.index] ? (
                         <InputGroup.Prepend onClick={this.onStatusChange}
