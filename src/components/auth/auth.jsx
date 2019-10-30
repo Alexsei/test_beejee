@@ -55,7 +55,7 @@ export default class Auth extends Component {
     }
     render() {
         return (
-            <div className="Login_div m-3">
+            <div className="Login_div m-3 m-auto">
                 <h4> Введите логин и пароль </h4>
 
                 <InputGroup className="mb-3 ">

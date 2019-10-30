@@ -149,7 +149,7 @@ export default class MenuTasks extends Component {
                         )
                         }
                         </strong></Col>
-                    <Col className="border" md={1}></Col>
+                    <Col className="" md={1}></Col>
                 </Row>
             </div>
         );

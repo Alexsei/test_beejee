@@ -46,55 +46,63 @@ export default class Task extends Component {
 
     async onClickSave(){
         if (this.state.auth) {
-            const url = "https://uxcandy.com/~shapoval/test-task-backend/v2/edit/"+this.props.id+"/?developer=Alexsei";
+
             const form = new FormData();
-            let newText = this.state.newText;
-            if (!(newText===this.props.tasks[this.props.index].text)) {
-                newText += '☣';
-            }
-
-            const newStatus = this.state.newStatus*10;
             form.append("token", localStorage.getItem('token'));
-            form.append("text", newText); //
-            form.append("status", (newStatus));
-            const options  = {
-                method: 'POST',
-                body: form
-            };
 
-            console.log(newText, newStatus);
-            const response = await fetch(url, options).then(response => response.json());
-            console.log(response);
-            let message = [];
-            for (let key in response.message) {
-                message.push(key + ": " + response.message[key])
-            }
-            switch (response.status) {
-                case "ok":
-                    let edit = this.props.edit;
-                    edit[this.props.index] = false;
-                    const tasks = this.props.tasks;
-                    tasks[this.props.index] = {
-                        id: this.props.id,
-                        username: this.props.username,
-                        email: this.props.email,
-                        text: newText,
-                        status: newStatus
-                    };
-                    this.props.setTasksText(tasks);
-                    this.props.setTasksEdit(edit);
-                    break;
-                case "error":
-                    this.setState({  variant: 'danger'});
-                    this.setState({ message: message});
-                    break;
-                default:
+            const newText = this.state.newText + '☣';
+            const newStatus = this.state.newStatus*10;
+
+            if (!(this.state.newText===this.props.tasks[this.props.index].text.replace(/☣/g, ''))) { // если text изменился
+                form.append("text", newText); //
             }
 
+            if (!(this.state.newStatus*10===this.props.tasks[this.props.index].status)) { // если статус изменился
+                form.append("status", newStatus);
+            }
 
-            this.setState({
-                edit: false
-            })
+            if (form.get('text') || form.get('status')) { // Если текст или статус изменился, то
+                const url = "https://uxcandy.com/~shapoval/test-task-backend/v2/edit/"+this.props.id+"/?developer=Alexsei";
+                const options  = {method: 'POST', body: form };
+
+                const response = await fetch(url, options).then(response => response.json());
+                let message = [];
+                for (let key in response.message) {
+                    message.push(key + ": " + response.message[key])
+                }
+                console.log("ррр2");
+                switch (response.status) {
+                    case "ok":
+                        let edit = this.props.edit;
+                        edit[this.props.index] = false;
+                        const tasks = this.props.tasks;
+                        tasks[this.props.index] = {
+                            id: this.props.id,
+                            username: this.props.username,
+                            email: this.props.email,
+                            text: newText,
+                            status: newStatus
+                        };
+                        this.props.setTasksText(tasks);
+                        this.props.setTasksEdit(edit);
+                        break;
+                    case "error":
+                        localStorage.removeItem('username');
+                        localStorage.removeItem('token');
+                        localStorage.removeItem('tokenTime');
+                        setTimeout(()=>(window.location.assign('/auth')),1000)
+                        this.setState({ variant: 'danger'});
+                        this.setState({ message: message});
+                        break;
+                    default:
+                }
+                this.setState({
+                    edit: false
+                })
+            } else {    // если текст и статус не изменились
+                this.onClickcancel();
+                console.log("ррр")
+            }
         }
     }
 
@@ -167,7 +175,7 @@ export default class Task extends Component {
                         }
 
                     </Col>
-                    <Col className="border"
+                    <Col className=""
                          md={1}
                     >{this.props.edit[this.props.index] ? (
                         <div className="m-1" >
@@ -176,7 +184,7 @@ export default class Task extends Component {
                             >✔</Button>
                             <Button variant="outline-danger"
                                     onClick={this.onClickcancel}
-                            ><strong>X</strong></Button>
+                            ><strong>✖</strong></Button>
                         </div>
 
 
