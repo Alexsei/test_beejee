@@ -1,68 +1,191 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Тестовое задание от BeeJee
 
-## Available Scripts
+Необходимо создать приложение-задачник.
+Задачи состоят из:
+- имени пользователя;
+- е-mail;
+- текста задачи;
+- статус задачи;
 
-In the project directory, you can run:
+Стартовая страница - список задач с возможностью сортировки по имени пользователя, email и статусу. Вывод задач нужно сделать страницами по 3 штуки (с пагинацией). Видеть список задач и создавать новые может любой посетитель без регистрации.
 
-### `npm start`
+Сделайте вход для администратора (логин "admin", пароль "123"). Администратор имеет возможность редактировать текст задачи и поставить галочку о выполнении. Выполненные задачи в общем списке выводятся с соответствующей отметкой.
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+В приложении нужно использовать React и Redux. Сложная архитектура не нужна, решите поставленные задачи минимально необходимым количеством кода. К дизайну особых требований нет.
+Результат нужно развернуть на любом бесплатном хостинге (например - zzz.com.ua), чтобы можно было посмотреть его в действии. Код можно выложить на github или bitbucket.
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+Будем ждать от Вас сообщение с результатом работы. Укажите, пожалуйста, в своём письме общее количество потраченного времени.
 
-### `npm test`
+По окончанию выполнения ждем от Вас две ссылки: на репозиторий, где выложен код и на рабочее тестовое задание.
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Если Вы не смогли выполнить тестовое по любым причинам, пожалуйста, сообщите нам. Будем ждать Вашего ответа в любом случае.
 
-### `npm run build`
+Для Вашего удобства предоставляю протокол тестирования, по которому проверяется тестовое задание.
+1) Перейти на стартовую страницу приложения. Должен отобразиться список задач. В списке присутствуют поля: имя пользователя, email, текст задачи, статус. Не должно быть опечаток. Зазоры должны быть ровные. Ничего не ползет. Должна быть возможность создания новой задачи. Должна быть кнопка для авторизации.
+2) Не заполнять поля для новой задачи. Сохранить задачу. Должны вывестись ошибки валидации. Ввести в поле email “test”. Должна вывестись ошибка, что email не валиден.
+3) Создать задачку с корректными данными (имя “test”, email “test@test.com”, текст “test job”). Задача должна отобразиться в списке задач. Данные должны быть ровно те, что были введены в поле формы. После создания задачи должно вывестись оповещение об успехе добавления (обратная связь).
+4) Для проверки XSS уязвимости нужно создать задачу с тегами в описании задачи (добавить в поле описания задачи текст <script>alert(‘test’);</script>, заполнить остальные поля). Задача должна отобразиться в списке задач, при этом не должен всплыть alert c текстом ‘test’.
+5) Создать еще 2 задачи. Должна появиться новая страница в пагинации.
+6) Отсортировать список по полю “имя пользователя” по возрастанию. Список должен пересортироваться. Перейти на последнюю страницу в пагинации. Сортировка не должна сбиться, задачи с последней страницы должны быть отображены. Далее отсортировать по тому же полю, но по убыванию. Перейти на первую страницу. Имя пользователя, которое было последним в списке, должно стать первым. Проделать этот тест для полей “email” и “статус”.
+7) Перейти на страницу авторизации пользователя. Попробовать залогиниться с пустыми полями. Должна вывестись ошибка, что поля обязательны для заполнения или, что введенные данные не верные. Ввести в поле для имени пользователя “admin1”, в поле для пароля “321”. Должна вывестись ошибка о неправильных реквизитах доступа. Админский доступ не должен быть предоставлен. Ввести данные “admin” в поле для имени и “123” в поле для пароля. Авторизация должна пройти успешно. Должна отобразиться кнопка для выхода из профиля админа.
+8) Для созданной задачи проставить отметку “выполнено”. Перезагрузить страницу. В общем списке задача должна отображаться со статусом задачи “выполнено”.
+Отредактировать текст задачи. Сохранить и перезагрузить страницу. Текст задачи должен быть тот, который ввели при редактировании. В общем списке задача должна отображаться уже с двумя отметками: "выполнено" и “отредактировано администратором”. Отметка “отредактировано администратором” должна появляться только в случае изменения текста в теле задачи.
+9) Открыть параллельно приложение в новой вкладке. Разлогиниться в новой вкладке. В этой вкладке не должно быть возможности редактировать задачу. Вернуться в предыдущую вкладку. Отредактировать задачу и сохранить. Отредактированная задача не должна быть сохранена. Приложение должно запросить авторизацию.
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Документацию по back-end:
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+Базовый url для запросов - https://uxcandy.com/~shapoval/test-task-backend/v2
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Ожидаемый MIME-type для POST-запросов - multipart/form-data
 
-### `npm run eject`
+Ответ сервера - в формате json.
+Ответ может содержать два поля:
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+status - текстовая строка - "ok" в случае успешного запроса, "error" в случае ошибки
+message - текстовая строка или ассоциативный массив - сообщение с результатами запроса (в случае успешного выполнения), сообщение об ошибке (в случае ошибки), поля может не быть или оно может быть пустым
+Для всех ответов GET-параметр "developer" является обязательным.
+Просьба указывать в этом параметре своё имя.
+Если параметр не получен, будет возвращено сообщение об ошибке:
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+    {
+        "status": "error",
+        "message": "Не передано имя разработчика"
+    }
+            
+Список задач (/):
+Обратите внимание - есть разница между https://uxcandy.com/~shapoval/test-task-backend/v2?developer=Name и https://uxcandy.com/~shapoval/test-task-backend/v2/?developer=Name. Правильным является последний вариант.
 
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+Допустимые параметры (GET):
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+sort_field (id | username | email | status) - поле, по которому выполняется сортировка
+sort_direction (asc | desc) - направление сортировки
+page - номер страницы для пагинации
+В ответе сервер в поле "message" передаёт два параметра - "tasks" (список задач на странице) и "total_task_count" (общее количество задач)
 
-## Learn More
+Пример ответа:
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+    {
+        "status": "ok",
+        "message": {
+            "tasks": [
+                {
+                    "id": 1,
+                    "username": "Test User",
+                    "email": "test_user_1@example.com",
+                    "text": "Hello, world!",
+                    "status": 10,
+                },
+                {
+                    "id": 3,
+                    "username": "Test User 2",
+                    "email": "test_user_2@example.com",
+                    "text": "Hello from user 2!",
+                    "status": 0,
+                },
+                {
+                    "id": 4,
+                    "username": "Test User 3",
+                    "email": "test_user_3@example.com",
+                    "text": "Hello from user 3!",
+                    "status": 0,
+                }
+            ],
+            "total_task_count": "5"
+        }
+    }
+            
+Добавление задачи (/create):
+Обязательные параметры (POST):
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+username - текстовое поле - имя пользователя, который добавляет задачу
+email - текстовое поле - email-адрес пользователя, который добавляет задачу, email-адрес должен быть валидным
+text - текстовое поле - текст задачи
+Пример запроса (jquery ajax):
 
-### Code Splitting
+    $(document).ready(function() {
+        var form = new FormData();
+        form.append("username", "Example");
+        form.append("email", "example@example.com");
+        form.append("text", "Some text");
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
+        $.ajax({
+            url: 'https://uxcandy.com/~shapoval/test-task-backend/v2/create?developer=Example',
+            crossDomain: true,
+            method: 'POST',
+            mimeType: "multipart/form-data",
+            contentType: false,
+            processData: false,
+            data: form,
+            dataType: "json",
+            success: function(data) {
+                console.log(data);
+            }
+        });
+    });
+            
+Пример ответа (успешное добавление):
 
-### Analyzing the Bundle Size
+    {
+        "status": "ok",
+        "message": {
+            "id": 8,
+            "username": "Example user",
+            "email": "123@example.com",
+            "text": "Some text",
+            "status": 0
+        }
+    }
+            
+Пример ответа (ошибка при добавлении):
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
+    {
+        "status": "error",
+        "message": {
+            "username": "Поле является обязательным для заполнения",
+            "email": "Неверный email",
+            "text": "Поле является обязательным для заполнения"
+        }
+    }
+            
+Логин (/login):
+Для проверки данных пользователя нужно в POST передать два поля - username и password. Значения этих полей можно найти в тексте задания.
 
-### Making a Progressive Web App
+В случае успешной авторизации в теле сообщения будет передан авторизационный токен, срок жизни которого - 1 день (24 часа).
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
+Пример ответа (ошибка авторизации):
 
-### Advanced Configuration
+    {
+        "status": "error",
+        "message": {
+            "username": "Поле является обязательным для заполнения",
+            "password": "Неверный логин или пароль"
+        }
+    }
+            
+Пример ответа:
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
+    {
+        "status": "ok"
+    }
+            
+Редактирование задачи (/edit/:id):
+Редактирование доступно только для авторизованных пользователей (см логин). В качестве POST-параметра нужно передать авторизационный токен (в поле token). Время жизни токена авторизации - 24 часа.
 
-### Deployment
+Допустимые параметры редактирования:
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
+text - тестовое поле - текст задачи
+status - числовое поле - статус выполнения задачи (0 - задача не выполнена, 10 - задача выполнена)
+Пример ответа (ошибка авторизации):
 
-### `npm run build` fails to minify
+    {
+        "status": "error",
+        "message": {
+            "token": "Токен истёк"
+        }
+    }
+            
+Пример ответа:
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+    {
+        "status": "ok"
+    }
