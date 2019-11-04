@@ -3,6 +3,7 @@ import {Button, Row, Col} from "react-bootstrap";
 
 
 
+
 export default class MenuTasks extends Component {
     constructor(props) {
         super(props);
@@ -70,7 +71,7 @@ export default class MenuTasks extends Component {
                         <Button variant="outline-secondary"
                                 onClick={()=> this.onPageChange(1)}
                                 className="m-1"
-                        >В начало</Button>
+                        >В начало<span className="oi oi-media-play" aria-hidden="true"></span></Button>
                         <Button variant="outline-secondary"
                                 onClick={()=> this.onPageChange(this.props.page-1)}
                                 className="m-1"
