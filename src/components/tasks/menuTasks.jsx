@@ -1,6 +1,14 @@
 import React, {Component} from "react";
 import {Button, Row, Col} from "react-bootstrap";
 
+import  {ReactComponent as CaretLeft} from "open-iconic/svg/caret-left.svg";
+import  {ReactComponent as MediaStepBackward} from "open-iconic/svg/media-step-backward.svg";
+import  {ReactComponent as MediaStepForward} from "open-iconic/svg/media-step-forward.svg";
+import  {ReactComponent as CaretRight} from "open-iconic/svg/caret-right.svg";
+
+
+
+
 
 
 
@@ -71,19 +79,20 @@ export default class MenuTasks extends Component {
                         <Button variant="outline-secondary"
                                 onClick={()=> this.onPageChange(1)}
                                 className="m-1"
-                        >В начало<span className="oi oi-media-play" aria-hidden="true"></span></Button>
+                        ><MediaStepBackward width="20" height="20" className="m-1"/>
+                       <span className="oi oi-media-play" aria-hidden="true"></span></Button>
                         <Button variant="outline-secondary"
                                 onClick={()=> this.onPageChange(this.props.page-1)}
                                 className="m-1"
-                        >Назад </Button>
+                        ><CaretLeft width="20" height="20" className="m-1"/></Button>
                         <Button variant="outline-secondary"
                                 onClick={()=> this.onPageChange(this.props.page+1)}
                                 className="m-1"
-                        >Вперед</Button>
+                        ><CaretRight width="20" height="20" className="m-1"/></Button>
                         <Button variant="outline-secondary"
                                 onClick={()=> this.onPageChange(Math.ceil(this.props.total_task_count/3 ))}
                                 className="m-1"
-                        >В Конец</Button>
+                        ><MediaStepForward width="20" height="20" className="m-1"/></Button>
                     </li>
                 </ul>
 
