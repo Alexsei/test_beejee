@@ -1,23 +1,6 @@
-import React, { Component } from "react";
 import {connect} from "react-redux";
 import CreateTask from "./createTask";
 import {setTaskEmail, setTaskId, setTaskStatus, setTaskText, setTaskUserName} from "../store/task/actions";
-
-class createTaskContainer extends Component {
-    render() {
-        return <CreateTask id={this.props.id}
-                           username={this.props.username}
-                           email={this.props.email}
-                           text={this.props.text}
-                           status={this.props.status}
-                           setTaskId={this.props.setTaskId}
-                           setTaskUserName={this.props.setTaskUserName}
-                           setTaskEmail={this.props.setTaskEmail}
-                           setTaskText={this.props.setTaskText}
-                           setTaskStatus={this.props.setTaskStatus}
-        />
-    }
-}
 
 const mapStateToProps = state => {
     return {
@@ -29,7 +12,7 @@ const mapStateToProps = state => {
     };
 }
 
-const mapDispatchToProps =  {
+const mapDispatchToProps = {
     setTaskId: setTaskId,
     setTaskUserName: setTaskUserName,
     setTaskEmail: setTaskEmail,
@@ -38,4 +21,4 @@ const mapDispatchToProps =  {
 
 };
 
-export default connect (mapStateToProps, mapDispatchToProps)(createTaskContainer)
+export default connect (mapStateToProps, mapDispatchToProps)(CreateTask)

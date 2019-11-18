@@ -1,4 +1,3 @@
-import React, { Component } from "react";
 import {connect} from "react-redux";
 
 import {
@@ -10,16 +9,6 @@ import {
 } from "../store/tasks/actions";
 import Tasks from "./tasks";
 
-
-
-class TasksContainer extends Component {
-    render() {
-        return <Tasks tasks={this.props.tasks}
-                      setTasksText={this.props.setTasksText}
-
-        />
-    }
-}
 
 const mapStateToProps = state => {
     return {
@@ -41,4 +30,4 @@ const mapDispatchToProps =  {
 
 };
 
-export default connect (mapStateToProps, mapDispatchToProps)(TasksContainer)
+export default connect (mapStateToProps, mapDispatchToProps)(Tasks)

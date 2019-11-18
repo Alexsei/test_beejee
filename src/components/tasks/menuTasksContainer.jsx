@@ -1,4 +1,3 @@
-import React, { Component } from "react";
 import {connect} from "react-redux";
 
 import {
@@ -13,31 +12,6 @@ import {setAuth} from "../store/auth/actions";
 
 import MenuTasks from "./menuTasks";
 
-
-
-
-class MenuTasksContainer extends Component {
-
-
-    render() {
-        return <MenuTasks
-            auth={this.props.auth}
-            tasks={this.props.tasks}
-            sort_field = {this.props.sort_field}
-            sort_direction = {this.props.sort_direction}
-            page = {this.props.page}
-            total_task_count = {this.props.total_task_count}
-
-            setTasksEdit={this.props.setTasksEdit}
-            setTasksText = {this.props.setTasksText}
-            setTasksSortField = {this.props.setTasksSortField}
-            setTasksSortDirection = {this.props.setTasksSortDirection}
-            setTasksPage = {this.props.setTasksPage}
-            setTasksTotalTaskCount = {this.props.setTasksTotalTaskCount}
-
-        />
-    }
-}
 
 const mapStateToProps = state => {
     return {
@@ -64,4 +38,4 @@ const mapDispatchToProps =  {
 
 };
 
-export default connect (mapStateToProps, mapDispatchToProps)(MenuTasksContainer)
+export default connect (mapStateToProps, mapDispatchToProps)(MenuTasks)
